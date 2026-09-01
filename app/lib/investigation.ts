@@ -1,0 +1,4 @@
+export type MatchInput={name:number;date:number;nationality:number;identifier:number;entityType:number;conflictingIdentifier?:boolean};
+export function screeningScore(m:MatchInput){const raw=m.name*.45+m.date*.20+m.nationality*.15+m.identifier*.15+m.entityType*.05;return Math.max(0,Math.min(100,Math.round(raw-(m.conflictingIdentifier?35:0))))}
+export function indirectOwnership(percentages:number[]){return percentages.reduce((result,value)=>result*(value/100),1)*100}
+export function scoreAttempt(required:Set<string>,found:Set<string>,evidenceCount:number,rationaleLength:number){const findings=[...required].filter(x=>found.has(x)).length/Math.max(required.size,1)*55;const evidence=Math.min(evidenceCount,5)/5*25;const rationale=Math.min(rationaleLength,300)/300*20;return Math.round(findings+evidence+rationale)}
